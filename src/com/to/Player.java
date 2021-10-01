@@ -5,11 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 
-@Table(name="player_table") 
+@Table
 public class Player {
 	
 	@Id
@@ -18,21 +19,13 @@ public class Player {
 	private int playerId;
 	@Column(nullable=false,name="Name")
 	private String playerName;
-	private String teamName;
+	@OneToOne
+	private Team team;
 	private int age;
 	
 	
 	
-	public Player(String playerName, String teamName, int age) {
-		super();
-		this.playerName = playerName;
-		this.teamName = teamName;
-		this.age = age;
-	}
-	public Player() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+
 	public int getPlayerId() {
 		return playerId;
 	}
@@ -45,12 +38,22 @@ public class Player {
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
-	public String getTeamName() {
-		return teamName;
+	
+	
+	public Team getTeam() {
+		return team;
 	}
-	public void setTeamName(String teamName) {
-		this.teamName = teamName;
+	public void setTeam(Team team) {
+		this.team = team;
 	}
+	
+	
+	//	public String getTeamName() {
+//		return teamName;
+//	}
+//	public void setTeamName(String teamName) {
+//		this.teamName = teamName;
+//	}
 	public int getAge() {
 		return age;
 	}
@@ -60,16 +63,28 @@ public class Player {
 	
 	
 	
-	public Player(int playerId, String playerName, String teamName, int age) {
+	public Player(int playerId, String playerName, Team team, int age) {
 		super();
 		this.playerId = playerId;
 		this.playerName = playerName;
-		this.teamName = teamName;
+		this.team = team;
 		this.age = age;
+	}
+	
+	public Player(String playerName, Team team, int age) {
+		super();
+		this.playerName = playerName;
+		this.team = team;
+		this.age = age;
+	}
+	
+	public Player() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {
-		return "Player [playerId=" + playerId + ", playerName=" + playerName + ", teamName=" + teamName + ", age=" + age
+		return "Player [playerId=" + playerId + ", playerName=" + playerName + ", teamDetails=" + team + ", age=" + age
 				+ "]";
 	}
 	

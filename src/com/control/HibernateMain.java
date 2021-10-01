@@ -12,6 +12,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import com.to.Player;
+import com.to.Team;
 
 public class HibernateMain {
 
@@ -20,7 +21,8 @@ public class HibernateMain {
 		
 		try {
 			Configuration configuration = new Configuration().configure();
-			configuration.addAnnotatedClass(com.to.Player.class);
+			configuration.addAnnotatedClass(com.to.Player.class); // Inform java of the annotated classes
+			configuration.addAnnotatedClass(com.to.Team.class); // Inform java of the annotated classes
 			StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties() );
 			
 			SessionFactory factory = configuration.buildSessionFactory(builder.build());
@@ -28,33 +30,18 @@ public class HibernateMain {
 			Session session = factory.openSession();
 			Transaction transaction = session.beginTransaction();
 			
-//		Player p1 = new Player(10,"Virat","India",30);
-//		Player p2 = new Player(13,"Kumar","India",20);
-//		session.save(p1);
-//		session.save(p2);		
-//		Player p = session.get(Player.class,10);
-//		System.out.println("The player details: " + p);
-//		p.setPlayerName("Dhoni");
-//		p.setAge(37);
-//		session.delete(p);
-//		Player p1 = new Player(10,"Youvraj","India",30);
-//		Player p2 = new Player(1,"Azhar","India",40);
-//		Player p3 = new Player(9,"Mike","Denver",20);
-//		session.save(p1);
-//		session.save(p2);
-//		session.save(p3);
+			Team t1 = new Team("India");
 			
-			Query query = session.createQuery("from Player where age between  :age1  and :age2 order by playerName desc");
+			Player p1 = new Player("Virat Kolhi", t1,28);
+			Player p2 = new Player("Fox Ben", t1,30);
+			Player p3 = new Player("Watson Noah", t1,21);
+			Player p4 = new Player("Baxter Baker", t1,22);
 			
-			query.setString("age1", "20");
-			query.setString("age2", "30");
-			List<Player> playerList = query.list();
-			
-			System.out.println("Player Details");
-			
-			for(Player p:playerList) {
-				System.out.println(p);
-			}
+			session.save(t1);
+			session.save(p1);
+			session.save(p2);
+			session.save(p3);
+			session.save(p4);
 			
 			transaction.commit();
 			session.close();
