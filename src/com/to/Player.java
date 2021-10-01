@@ -1,10 +1,14 @@
 package com.to;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,8 +23,10 @@ public class Player {
 	private int playerId;
 	@Column(nullable=false,name="Name")
 	private String playerName;
-	@OneToOne
-	private Team team;
+//	@OneToOne
+//	private Team team;
+	@OneToMany
+	private List <Team> teamList = new ArrayList<>();
 	private int age;
 	
 	
@@ -40,13 +46,13 @@ public class Player {
 	}
 	
 	
-	public Team getTeam() {
-		return team;
-	}
-	public void setTeam(Team team) {
-		this.team = team;
-	}
-	
+//	public Team getTeam() {
+//		return team;
+//	}
+//	public void setTeam(Team team) {
+//		this.team = team;
+//	}
+//	
 	
 	//	public String getTeamName() {
 //		return teamName;
@@ -54,6 +60,13 @@ public class Player {
 //	public void setTeamName(String teamName) {
 //		this.teamName = teamName;
 //	}
+	
+	public List<Team> getTeamList() {
+		return teamList;
+	}
+	public void setTeamList(List<Team> teamList) {
+		this.teamList = teamList;
+	}
 	public int getAge() {
 		return age;
 	}
@@ -62,7 +75,7 @@ public class Player {
 	}
 	
 	
-	
+	/*
 	public Player(int playerId, String playerName, Team team, int age) {
 		super();
 		this.playerId = playerId;
@@ -78,13 +91,16 @@ public class Player {
 		this.age = age;
 	}
 	
+	*/
+	
+	
 	public Player() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {
-		return "Player [playerId=" + playerId + ", playerName=" + playerName + ", teamDetails=" + team + ", age=" + age
+		return "Player [playerId=" + playerId + ", playerName=" + playerName + ", TeamList=" + teamList + ", age=" + age
 				+ "]";
 	}
 	

@@ -1,6 +1,7 @@
 package com.control;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -31,17 +32,20 @@ public class HibernateMain {
 			Transaction transaction = session.beginTransaction();
 			
 			Team t1 = new Team("India");
+			Team t2 = new Team("RCB");
+			Team t3 = new Team("Delhi");
 			
-			Player p1 = new Player("Virat Kolhi", t1,28);
-			Player p2 = new Player("Fox Ben", t1,30);
-			Player p3 = new Player("Watson Noah", t1,21);
-			Player p4 = new Player("Baxter Baker", t1,22);
-			
+			Player p = new Player();
+			p.setAge(28);
+			p.setPlayerName("Virat Kolhi");
+			p.getTeamList().add(t1);
+			p.getTeamList().add(t2);
+			p.getTeamList().add(t3);
 			session.save(t1);
-			session.save(p1);
-			session.save(p2);
-			session.save(p3);
-			session.save(p4);
+			session.save(t2);
+			session.save(t3);
+			session.save(p);
+	
 			
 			transaction.commit();
 			session.close();
